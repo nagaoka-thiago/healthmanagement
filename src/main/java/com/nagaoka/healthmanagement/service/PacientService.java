@@ -29,10 +29,9 @@ public class PacientService {
 				.collect(Collectors.toList());
 	}
 
-	public Pacient getByCpf(String cpf) throws PacientNotFoundException{
+	public PacientDTO getByCpf(String cpf) throws PacientNotFoundException{
 		Pacient pacient = verifyExistsPacient(cpf);
-		//return pacientMapper.toDTO(pacient);
-		return pacient;
+		return pacientMapper.toDTO(pacient);
 	}
 	
 	public MessageDTO createPacient(PacientDTO pacient) {

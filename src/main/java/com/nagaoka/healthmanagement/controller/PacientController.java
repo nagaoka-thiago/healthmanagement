@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nagaoka.healthmanagement.dto.MessageDTO;
 import com.nagaoka.healthmanagement.dto.PacientDTO;
 import com.nagaoka.healthmanagement.exception.PacientNotFoundException;
-import com.nagaoka.healthmanagement.model.Pacient;
 import com.nagaoka.healthmanagement.service.PacientService;
 
 import lombok.AllArgsConstructor;
@@ -34,7 +33,7 @@ public class PacientController {
 	}
 	
 	@GetMapping("/{cpf}")
-	public Pacient getById(@PathVariable("cpf") String cpf) throws PacientNotFoundException {
+	public PacientDTO getById(@PathVariable("cpf") String cpf) throws PacientNotFoundException {
 		return this.service.getByCpf(cpf);
 	}
 	
