@@ -14,44 +14,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nagaoka.healthmanagement.dto.DoctorDTO;
 import com.nagaoka.healthmanagement.dto.MessageDTO;
-import com.nagaoka.healthmanagement.dto.PacientDTO;
-import com.nagaoka.healthmanagement.exception.PacientNotFoundException;
-import com.nagaoka.healthmanagement.model.Pacient;
-import com.nagaoka.healthmanagement.service.PacientService;
+import com.nagaoka.healthmanagement.exception.DoctorNotFoundException;
+import com.nagaoka.healthmanagement.service.DoctorService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/pacients")
+@RequestMapping("api/v1/doctors")
 @AllArgsConstructor(onConstructor = @__({@Autowired}))
-public class PacientController {
-	private PacientService service;
+public class DoctorController {
+	
+	private DoctorService service;
 	
 	@GetMapping
-	public List<PacientDTO> getAll() {
+	public List<DoctorDTO> getAll() {
 		return this.service.getAll();
 	}
 	
-	@GetMapping("/{cpf}")
-	public Pacient getById(@PathVariable("cpf") String cpf) throws PacientNotFoundException {
-		return this.service.getByCpf(cpf);
+	@GetMapping("/{crm}")
+	public DoctorDTO getByCRM(@PathVariable("crm") String crm) throws DoctorNotFoundException{
+		return this.service.getByCRM(crm);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public MessageDTO createPacient(@RequestBody PacientDTO pacient) {
-		return this.service.createPacient(pacient);
+	public MessageDTO createDoctor(@RequestBody DoctorDTO doctor) {
+		return this.service.createDoctor(doctor);
 	}
 	
-	@PutMapping("/{cpf}")
-	public MessageDTO updatePacient(@PathVariable("cpf") String cpf, @RequestBody PacientDTO pacient) throws PacientNotFoundException {
-		return this.service.updatePacient(cpf, pacient);
+	@PutMapping("/{crm}")
+	public MessageDTO updateDoctor(@PathVariable("crm") String crm, @RequestBody DoctorDTO doctor) throws DoctorNotFoundException{
+		return this.service.updateDoctor(crm, doctor);
 	}
 	
-	@DeleteMapping("/{cpf}")
+	@DeleteMapping("/{crm}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deletePacient(@PathVariable("cpf") String cpf) throws PacientNotFoundException{
-		this.service.deletePacient(cpf);
+	public void deleteDoctor(@PathVariable("crm") String crm) throws DoctorNotFoundException{
+		this.service.deleteDoctor(crm);
 	}
 }

@@ -20,29 +20,30 @@ import lombok.AllArgsConstructor;
 public class PacientService {
 	private PacientRepository repository;
 	
-	private final PacientMapper pm = PacientMapper.INSTANCE;
+	private final PacientMapper pacientMapper = PacientMapper.INSTANCE;
 	
 	public List<PacientDTO> getAll() {
 		return this.repository.findAll()
 				.stream()
-				.map(pm::toDTO)
+				.map(pacientMapper::toDTO)
 				.collect(Collectors.toList());
 	}
 
-	public PacientDTO getByCpf(String cpf) throws PacientNotFoundException{
+	public Pacient getByCpf(String cpf) throws PacientNotFoundException{
 		Pacient pacient = verifyExistsPacient(cpf);
-		return pm.toDTO(pacient);
+		//return pacientMapper.toDTO(pacient);
+		return pacient;
 	}
 	
 	public MessageDTO createPacient(PacientDTO pacient) {
-		Pacient newPacient = pm.toModel(pacient);
+		Pacient newPacient = pacientMapper.toModel(pacient);
 		this.repository.save(newPacient);
 		return getMessage("Pacient with CPF " + pacient.getCpf() + " is registered in our database.");
 	}
 	
 	public MessageDTO updatePacient(String cpf, PacientDTO pacient) throws PacientNotFoundException{
 		verifyExistsPacient(cpf);
-		Pacient newPacient = pm.toModel(pacient);
+		Pacient newPacient = pacientMapper.toModel(pacient);
 		this.repository.save(newPacient);
 		return getMessage("Update in pacient with CPF " + pacient.getCpf() + " is registered in our database.");
 	}

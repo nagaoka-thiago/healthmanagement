@@ -22,10 +22,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pacients")
-public class Pacient {
+@Table(name = "doctors")
+public class Doctor {
+	
 	@Id
-	private String cpf;
+	private String crm;
 	
 	@Column(nullable = false)
 	private String fullname;
@@ -34,6 +35,6 @@ public class Pacient {
 	private LocalDate birthday;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinColumn(name = "cpf")
+	@JoinColumn(name = "crm")
 	private List<Appointment> appointments;
 }
