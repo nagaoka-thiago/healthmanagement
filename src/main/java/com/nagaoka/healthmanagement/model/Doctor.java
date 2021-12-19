@@ -12,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "doctors")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property = "crm", scope = Doctor.class)
 public class Doctor {
 	
 	@Id
@@ -38,6 +40,5 @@ public class Doctor {
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JoinColumn(name = "crm")
-	@JsonManagedReference
 	private List<Appointment> appointments;
 }

@@ -7,7 +7,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nagaoka.healthmanagement.model.Doctor;
 import com.nagaoka.healthmanagement.model.Pacient;
 
@@ -26,12 +25,10 @@ public class AppointmentId implements Serializable{
 	
 	@ManyToOne(targetEntity = Pacient.class)
 	@JoinColumn(name = "cpf")
-    @JsonBackReference
 	private Pacient pacient;
 	
 	@ManyToOne(targetEntity = Doctor.class)
 	@JoinColumn(name = "crm")
-    @JsonBackReference
 	private Doctor doctor;
 	
 	private LocalDate appointment_date;
